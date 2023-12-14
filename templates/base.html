@@ -37,7 +37,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="{% url 'home' %}">
                     <span>Financial control system by Khalid</span></a>
             </li>
 
@@ -50,6 +50,10 @@
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{% url 'home' %}">
+                    <span>Главная</span>
+                </a>
             {% if user.is_anonymous %}
             <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
@@ -66,7 +70,7 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{% url 'category_add' %}">Добавить категорию</a>
-                        <a class="collapse-item" href="cards.html">Добавить платеж</a>
+                        <a class="collapse-item" href="#">Добавить платеж</a>
                     </div>
                 </div>
             </li>

@@ -1,0 +1,4 @@
+    date = models.DateField('Дата')
+
+    payment_history = Payment.objects.filter(category__author=self.request.user).values('category', 'sum', 'date')
+    context['payment_history'] = payment_history
