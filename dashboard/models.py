@@ -21,6 +21,7 @@ class Payment(models.Model):
         related_name='payments'
     )
     sum = models.PositiveIntegerField('Сумма')
+    date = models.DateField('Дата')
 
     class Meta:
         verbose_name = 'Платеж'
