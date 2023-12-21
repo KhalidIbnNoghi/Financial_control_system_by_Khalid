@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block title %}Log-in{% endblock %}
 
 {% block content %}
@@ -18,5 +18,14 @@
       <input type="hidden" name="next" value="{{ next }}" />
       <p><input type="submit" value="Войти"></p>
     </form>
+  </div>
+  <div class="social">
+    <ul>
+      <li class="google">
+        <a href="{% url 'social:begin' 'google-oauth2' %}">
+          <button type="button" class="btn btn-danger"> Войти с помощью Google </button>
+        </a>
+      </li>
+    </ul>
   </div>
 {% endblock %}

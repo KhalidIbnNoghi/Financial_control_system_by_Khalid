@@ -70,7 +70,6 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{% url 'category_add' %}">Добавить категорию</a>
-                        <a class="collapse-item" href="#">Добавить платеж</a>
                     </div>
                 </div>
             </li>
@@ -256,8 +255,8 @@
                                         <div class="status-indicator bg-success"></div>
                                     </div>
                                     <div class="font-weight-bold">
-                                        <div class="text-truncate"> Ты сегодня на работе будешь? </div>
-                                        <div class="small text-gray-500">Хава · 58м</div>
+                                        <div class="text-truncate"> Не могу найти ошибку в коде. </div>
+                                        <div class="small text-gray-500">Мадина · 58м</div>
                                     </div>
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
@@ -278,7 +277,7 @@
                                         <div class="status-indicator bg-warning"></div>
                                     </div>
                                     <div>
-                                        <div class="text-truncate"> Помоги с компьютером, please </div>
+                                        <div class="text-truncate"> Уже закончила проект. Все работает отлично! </div>
                                         <div class="small text-gray-500">Амина · 2м</div>
                                     </div>
                                 </a>
@@ -313,10 +312,12 @@
                                     Журнал активности
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{% url 'logout' %}" data-toggle="modal" data-target="#logoutModal">
+                                {% if request.user.is_authenticated %}
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Выйти
                                 </a>
+                                {% endif %}
                             </div>
                         </li>
                     </ul>
@@ -346,27 +347,27 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-
+    {% if request.user.is_authenticated %}
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Вы действительно хотите выйти?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-body">Нажмите 'Выйти', если вы готовы завершить текущий сеанс.</div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="#">Logout</a>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Отмена</button>
+                    <a class="btn btn-primary" href="{% url 'logout' %}">Выйти</a>
                 </div>
             </div>
         </div>
     </div>
-
+    {% endif %}
     <!-- Bootstrap core JavaScript-->
     <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
     <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
