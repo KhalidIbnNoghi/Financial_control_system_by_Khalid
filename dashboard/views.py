@@ -79,3 +79,25 @@ def register(request):
 def logout_user(request):
     logout(request)
     return redirect('home')
+
+
+class PaymentHistoryView(LoginRequiredMixin ,ListView):
+    template_name = 'payment_history.html'
+    context_object_name = 'categories'
+
+    def get_queryset(self) -> QuerySet[Any]:
+        if self.request.user.is_anonymous:
+            return
+        queryset = Category.objects.filter(author=self.request.user).prefetch_related(
+            'payments').annotate(payment_sum=Sum('payments__sum'))
+        return queryset
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+
+        total_sum = Category.objects.filter(author=self.request.user).aggregate(total_sum=Sum('payments__sum'))['total_sum']
+        context['total_sum'] = total_sum
+
+        payment_history = Payment.objects.filter(category__author=self.request.user).values('category', 'sum', 'date')
+        context['payment_history'] = payment_history
+
+        return context

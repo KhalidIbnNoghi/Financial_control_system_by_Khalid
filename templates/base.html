@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Financial control by Khalid</title>
+    <title>Financial accounting system</title>
 
     <!-- Custom fonts for this template-->
     <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
@@ -38,84 +38,49 @@
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
                 <a class="nav-link" href="{% url 'home' %}">
-                    <span>Financial control by Khalid</span></a>
+                    <span>Financial accounting system</span></a>
             </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Интерфейс
-            </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{% url 'home' %}">
-                    <span>Главная</span>
+                    <button type="button" class="btn btn-secondary">Главная</button>
                 </a>
             {% if user.is_anonymous %}
             <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <span>Войдите в аккаунт</span>
+                <a class="nav-link collapsed" href="{% url 'login' %}">
+                    <button type="button" class="btn btn-secondary">Вход</button>
+                </a>
+                <a class="nav-link collapsed" href="{% url 'register' %}">
+                    <button type="button" class="btn btn-secondary">Регистрация</button>
                 </a>
             </li>
             {% else %}
             <li class="nav-item">
+                {% if request.user.is_authenticated %}
+                <a class="nav-link collapsed" href="{% url 'logout' %}">
+                    <button type="button" class="btn btn-secondary">Выход</button>
+                </a>
+                <a class="nav-link collapsed" href="{% url 'payment-history' %}">
+                    <button type="button" class="btn btn-info">История платежей</button>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
-                    <span>Добавить</span>
+                    <button type="button" class="btn btn-success">Добавить</button>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{% url 'category_add' %}">Добавить категорию</a>
-                    </div>
+                        <a class="collapse-item" href="{% url 'category_add' %}"> <button type="button" class="btn btn-success">Добавить категорию</button></a>
                 </div>
-            </li>
+            </div>
             {% endif %}
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Utilities</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
-                        <a class="collapse-item" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="utilities-other.html">Other</a>
-                    </div>
-                </div>
-            </li>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Страницы</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{% url 'login' %}">Вход</a>
-                        {% if request.user.is_authenticated %}
-                        <a class="collapse-item" href="{% url 'logout' %}">Выход</a>
-                        {% endif %}
-                        <a class="collapse-item" href="{% url 'register' %}">Регистрация</a>
-                        <a class="collapse-item" href="forgot-password.html">Забыли пароль</a>
-                        <div class="collapse-divider"></div>
-                        <a class="collapse-item" href="#">История платежей</a>
-                    </div>
-                </div>
-            </li>
+            {% endif %}
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -184,6 +149,7 @@
                         </li>
 
                         <!-- Nav Item - Alerts -->
+                        {% if request.user.is_authenticated %}
                         <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -286,7 +252,6 @@
                         </li>
 
                         <div class="topbar-divider d-none d-sm-block"></div>
-                        {% if request.user.is_authenticated %}
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
@@ -307,9 +272,9 @@
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Настройки
                                 </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Журнал активности
+                                <a class="dropdown-item" href="{% url 'password_change' %}">
+                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Изменить пароль
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 {% if request.user.is_authenticated %}

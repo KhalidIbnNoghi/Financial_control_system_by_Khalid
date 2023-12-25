@@ -18,5 +18,5 @@ class CategoryAdmin(admin.ModelAdmin):
 class PaymentAdmin(admin.ModelAdmin):
     fields = ( 'sum', 'date', 'category' )
     list_display = ( 'sum', 'date', 'category' )
-    list_filter = ( 'sum', 'date' )
+    list_filter = ( 'date', )
     ordering = ('-date',)

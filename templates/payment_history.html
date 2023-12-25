@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} История платежей {% endblock %}
+
+{% block content %}
+
+<div class="card-body">
+    {% for payment in payment_history %}
+    <h4 class="small font-weight-bold"> {{ payment.sum }} </h4>
+    <h4 class="small font-weight-bold"> {{ payment.category__name }} </h4>
+    <h4 class="small font-weight-bold"> {{ payment.date }} </h4>
+    {% endfor %}
+</div>
+
+{% endblock %}
