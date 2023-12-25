@@ -1,1 +1,1 @@
-# Financial_control_system_by_Khalid
+# django_financial_accounting_system
